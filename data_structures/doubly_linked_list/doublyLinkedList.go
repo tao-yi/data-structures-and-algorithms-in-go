@@ -1,4 +1,4 @@
-package data_structures
+package doubly_linked_list
 
 import "fmt"
 
@@ -80,9 +80,10 @@ func (l *doublyLinkedList) RemoveLast() (last int, success bool) {
 	if l.head == l.tail {
 		return l.RemoveFirst()
 	}
-	l.tail.prev.next = nil
-	l.size--
 	last = l.tail.data
+	l.tail.prev.next = nil
+	l.tail = l.tail.prev
+	l.size--
 	success = true
 	return last, success
 }

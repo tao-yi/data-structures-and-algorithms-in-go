@@ -1,5 +1,5 @@
 package tree
 
-type Comparator interface {
+type Interface interface {
 	Compare(interface{}) int
 }

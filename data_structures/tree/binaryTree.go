@@ -14,16 +14,16 @@ import (
 // for each node, value of all the left subtree is less than or equal to value of all the nodes in right subtree
 
 type node struct {
-	data  Comparator
+	data  Interface
 	left  *node
 	right *node
 }
 
-func NewNode(data Comparator) *node {
+func NewNode(data Interface) *node {
 	return &node{data: data}
 }
 
-func (n *node) Insert(data Comparator) {
+func (n *node) Insert(data Interface) {
 	if data.Compare(n.data) < 0 {
 		if n.left == nil {
 			n.left = NewNode(data)
@@ -39,7 +39,7 @@ func (n *node) Insert(data Comparator) {
 	}
 }
 
-func (n *node) Search(data Comparator) bool {
+func (n *node) Search(data Interface) bool {
 	if data == n.data {
 		return true
 	}
@@ -69,9 +69,9 @@ func (n *node) InOrder() {
 }
 
 type BinarySearchTree interface {
-	Contains(Comparator) bool
-	AddNode(Comparator)
-	DeleteNode(Comparator) *node
+	Contains(Interface) bool
+	AddNode(Interface)
+	DeleteNode(Interface) *node
 	InOrder()
 
 	BreadthFirstSearch()
@@ -83,11 +83,11 @@ type tree struct {
 	root *node
 }
 
-func NewTree(data Comparator) BinarySearchTree {
+func NewTree(data Interface) BinarySearchTree {
 	return &tree{root: NewNode(data)}
 }
 
-func (t *tree) AddNode(data Comparator) {
+func (t *tree) AddNode(data Interface) {
 	t.root.Insert(data)
 }
 
@@ -97,15 +97,15 @@ func (t *tree) AddNode(data Comparator) {
 // 		=> copy the value of its child to the node and delete the child
 // case3: delete a node has two chidren
 //    => copy the value of the inorder successor to the node, delete the inorder successor
-func (t *tree) DeleteNode(data Comparator) *node {
+func (t *tree) DeleteNode(data Interface) *node {
 	return deleteNode(t.root, data)
 }
 
-func (t *tree) Contains(data Comparator) bool {
+func (t *tree) Contains(data Interface) bool {
 	return t.root.Search(data)
 }
 
-func deleteNode(currentNode *node, data Comparator) *node {
+func deleteNode(currentNode *node, data Interface) *node {
 	if currentNode == nil {
 		return currentNode
 	}

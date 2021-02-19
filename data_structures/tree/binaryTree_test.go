@@ -46,16 +46,16 @@ func TestAddNode(t *testing.T) {
 	tree.InOrder()
 }
 
-func TestDeleteNode(t *testing.T) {
-	tree := InitTree()
-	fmt.Println(tree)
-	fmt.Println(tree.Contains(NewNodeData(15)))
-	fmt.Println(tree.Contains(NewNodeData(29)))
-	tree.InOrder()
+// func TestDeleteNode(t *testing.T) {
+// 	tree := InitTree()
+// 	fmt.Println(tree)
+// 	fmt.Println(tree.Contains(NewNodeData(15)))
+// 	fmt.Println(tree.Contains(NewNodeData(29)))
+// 	tree.InOrder()
 
-	tree.DeleteNode(NewNodeData(15))
-	tree.InOrder()
-}
+// 	tree.DeleteNode(NewNodeData(15))
+// 	tree.InOrder()
+// }
 
 func TestBreadthFirstSearch(t *testing.T) {
 	tree := InitTree()

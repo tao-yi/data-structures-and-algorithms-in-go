@@ -5,80 +5,69 @@ import (
 	"testing"
 )
 
+type NodeData int
+
+func NewNodeData(data int) NodeData {
+	return NodeData(data)
+}
+
+func (n NodeData) Compare(i interface{}) int {
+	return int(n) - int(i.(NodeData))
+}
+
+func InitTree() BinarySearchTree {
+	tree := NewTree(NewNodeData(12))
+	tree.AddNode(NewNodeData(5))
+	tree.AddNode(NewNodeData(15))
+	tree.AddNode(NewNodeData(3))
+	tree.AddNode(NewNodeData(7))
+	tree.AddNode(NewNodeData(13))
+	tree.AddNode(NewNodeData(17))
+	tree.AddNode(NewNodeData(1))
+	tree.AddNode(NewNodeData(9))
+	return tree
+}
+
 func TestAddNode(t *testing.T) {
-	tree := NewTree(10)
-	tree.AddNode(15)
-	tree.AddNode(1)
-	tree.AddNode(5)
-	tree.AddNode(2)
-	tree.AddNode(6)
-	tree.AddNode(35)
-	tree.AddNode(21)
-	tree.AddNode(26)
+	tree := NewTree(NewNodeData(10))
+	tree.AddNode(NewNodeData(15))
+	tree.AddNode(NewNodeData(1))
+	tree.AddNode(NewNodeData(5))
+	tree.AddNode(NewNodeData(2))
+	tree.AddNode(NewNodeData(6))
+	tree.AddNode(NewNodeData(35))
+	tree.AddNode(NewNodeData(21))
+	tree.AddNode(NewNodeData(26))
 
 	fmt.Println(tree)
 
-	fmt.Println(tree.Contains(15))
-	fmt.Println(tree.Contains(29))
+	fmt.Println(tree.Contains(NewNodeData(15)))
+	fmt.Println(tree.Contains(NewNodeData(29)))
 	tree.InOrder()
 }
 
 func TestDeleteNode(t *testing.T) {
-	tree := NewTree(12)
-	tree.AddNode(5)
-	tree.AddNode(15)
-	tree.AddNode(3)
-	tree.AddNode(7)
-	tree.AddNode(13)
-	tree.AddNode(17)
-	tree.AddNode(1)
-	tree.AddNode(9)
-
+	tree := InitTree()
 	fmt.Println(tree)
+	fmt.Println(tree.Contains(NewNodeData(15)))
+	fmt.Println(tree.Contains(NewNodeData(29)))
+	tree.InOrder()
 
-	fmt.Println(tree.Contains(15))
-	fmt.Println(tree.Contains(29))
+	tree.DeleteNode(NewNodeData(15))
 	tree.InOrder()
 }
 
 func TestBreadthFirstSearch(t *testing.T) {
-	tree := NewTree(12)
-	tree.AddNode(5)
-	tree.AddNode(15)
-	tree.AddNode(3)
-	tree.AddNode(7)
-	tree.AddNode(13)
-	tree.AddNode(17)
-	tree.AddNode(1)
-	tree.AddNode(9)
-
+	tree := InitTree()
 	tree.BreadthFirstSearch()
 }
 
 func TestDepthFirstSearchRec(t *testing.T) {
-	tree := NewTree(12)
-	tree.AddNode(5)
-	tree.AddNode(15)
-	tree.AddNode(3)
-	tree.AddNode(7)
-	tree.AddNode(13)
-	tree.AddNode(17)
-	tree.AddNode(1)
-	tree.AddNode(9)
-
+	tree := InitTree()
 	tree.DepthFirstSearchRec()
 }
 
 func TestDepthFirstSearchLoop(t *testing.T) {
-	tree := NewTree(12)
-	tree.AddNode(5)
-	tree.AddNode(15)
-	tree.AddNode(3)
-	tree.AddNode(7)
-	tree.AddNode(13)
-	tree.AddNode(17)
-	tree.AddNode(1)
-	tree.AddNode(9)
-
+	tree := InitTree()
 	tree.DepthFirstSearchLoop()
 }

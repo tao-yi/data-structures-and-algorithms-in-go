@@ -1,25 +1,25 @@
 package data_structures
 
 type Queue interface {
-	Enqueue(int)          // O(1)
-	Dequeue() (int, bool) // O(1)
-	IsEmpty() bool        // O(1)
-	Size() int            // O(1)
+	Enqueue(interface{})          // O(1)
+	Dequeue() (interface{}, bool) // O(1)
+	IsEmpty() bool                // O(1)
+	Size() int                    // O(1)
 }
 
 type queue struct {
-	items []int
+	items []interface{}
 }
 
 func NewQueue() Queue {
 	return &queue{}
 }
 
-func (q *queue) Enqueue(item int) {
+func (q *queue) Enqueue(item interface{}) {
 	q.items = append(q.items, item)
 }
 
-func (q *queue) Dequeue() (int, bool) {
+func (q *queue) Dequeue() (interface{}, bool) {
 	if len(q.items) == 0 {
 		return 0, false
 	}

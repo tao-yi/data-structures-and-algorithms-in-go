@@ -5,20 +5,21 @@ package data_structures
 // and then to iterate through the collected items
 // ** The order of iteration is unspecified and should be immaterial to the client
 type Bag interface {
-	Add(int)
+	Add(interface{})
 	IsEmpty() bool
 	Size() int
+	Values() []interface{}
 }
 
 type bag struct {
-	items []int
+	items []interface{}
 }
 
 func NewBag() Bag {
 	return &bag{}
 }
 
-func (b *bag) Add(item int) {
+func (b *bag) Add(item interface{}) {
 	b.items = append(b.items, item)
 }
 
@@ -28,4 +29,8 @@ func (b *bag) IsEmpty() bool {
 
 func (b *bag) Size() int {
 	return len(b.items)
+}
+
+func (b *bag) Values() []interface{} {
+	return b.items
 }

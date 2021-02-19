@@ -7,76 +7,70 @@ import (
 	"github.com/tao-yi/data-structure-in-go/data_structures/doubly_linked_list"
 )
 
-// using stack to reverse
-func Reverse(arr []int) []int {
-	stack := doubly_linked_list.NewStack()
-	for _, item := range arr {
-		stack.Push(item)
-	}
-	i := 0
-	for !stack.IsEmpty() {
-		if item, ok := stack.Pop(); ok != false {
-			arr[i] = item.(int)
-			i++
-		}
-	}
-	fmt.Println(stack.Size())
-	return arr
+func InitStack() doubly_linked_list.Stack {
+	q := doubly_linked_list.NewStack()
+	q.Push(1)
+	q.Push(2)
+	q.Push(3)
+	q.Push(4)
+	return q
 }
 
-// reverse with space complexity O(1)
-func ReverseInPlace(arr []int) []int {
-	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
-		arr[i], arr[j] = arr[j], arr[i]
+func TestPush(t *testing.T) {
+	s := doubly_linked_list.NewStack()
+	tests := []struct {
+		stack doubly_linked_list.Stack
+		data  string
+		size  int
+	}{
+		{stack: s, data: "hello", size: 1},
+		{stack: s, data: "world", size: 2},
+		{stack: s, data: "你好", size: 3},
+		{stack: s, data: "世界", size: 4},
 	}
-	return arr
-}
 
-// input: [[()]{()}]
-func CheckForParentheses(input string) bool {
-	opening := map[string]string{
-		"[": "]",
-		"(": ")",
-		"{": "}",
-	}
-	closing := map[string]string{
-		"]": "[",
-		")": "(",
-		"}": "{",
-	}
-	stack := []string{}
-	var char string
-	for _, c := range input {
-		char = string(c)
-		_, isOpening := opening[char]
-		_, isClosing := closing[char]
-		if isOpening {
-			stack = append(stack, char)
-		} else if isClosing {
-			// pop last item from stack
-			top := stack[len(stack)-1]
-			if top == closing[char] {
-				stack = stack[:len(stack)-1]
-			} else {
-				return false
+	for _, test := range tests {
+		t.Run(fmt.Sprintf("enqueue %s", test.data), func(t *testing.T) {
+			test.stack.Push(test.data)
+			if test.stack.Size() != test.size {
+				t.Errorf("got size: %d, want %d", test.stack.Size(), test.size)
 			}
-		}
+		})
 	}
-	return true
 }
 
-func TestStack(t *testing.T) {
-	arr1 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	arr2 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	arr1 = Reverse(arr1)
-	arr2 = ReverseInPlace(arr2)
-	fmt.Println(arr1)
-	fmt.Println(arr2)
+func TestPop(t *testing.T) {
+	s := InitStack()
+	tests := []struct {
+		stack   doubly_linked_list.Stack
+		data    interface{}
+		size    int
+		ok      bool
+		isEmpty bool
+	}{
+		{stack: s, data: 4, size: 3, ok: true, isEmpty: false},
+		{stack: s, data: 3, size: 2, ok: true, isEmpty: false},
+		{stack: s, data: 2, size: 1, ok: true, isEmpty: false},
+		{stack: s, data: 1, size: 0, ok: true, isEmpty: true},
+		{stack: s, data: nil, size: 0, ok: false, isEmpty: true},
+		{stack: s, data: nil, size: 0, ok: false, isEmpty: true},
+	}
 
-	input := "[[()]{()}]"
-	isBalanced := CheckForParentheses(input)
-	fmt.Println(isBalanced)
-	input = "[[((((({)))))]{()}]"
-	isBalanced = CheckForParentheses(input)
-	fmt.Println(isBalanced)
+	for _, test := range tests {
+		t.Run(fmt.Sprintf("pop from stack: %v", test.stack), func(t *testing.T) {
+			data, ok := s.Pop()
+			if test.stack.Size() != test.size {
+				t.Errorf("got size: %d, want %d", test.stack.Size(), test.size)
+			}
+			if ok != test.ok {
+				t.Errorf("got ok: %t, want %t", ok, test.ok)
+			}
+			if data != test.data {
+				t.Errorf("got data: %v, want %v", data, test.data)
+			}
+			if test.stack.IsEmpty() != test.isEmpty {
+				t.Errorf("got isEmpty: %t, want %t", test.stack.IsEmpty(), test.isEmpty)
+			}
+		})
+	}
 }

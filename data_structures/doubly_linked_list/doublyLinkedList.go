@@ -37,6 +37,7 @@ func NewDoublyLinkedlist() DoublyLinkedlist {
 func (l *doublyLinkedList) AddFirst(data interface{}) {
 	newNode := newNode(data)
 	newNode.next = l.head
+	l.size++
 	if l.head == nil {
 		l.head = newNode
 		l.tail = newNode
@@ -44,7 +45,6 @@ func (l *doublyLinkedList) AddFirst(data interface{}) {
 	}
 	l.head.prev = newNode
 	l.head = newNode
-	l.size++
 }
 
 func (l *doublyLinkedList) AddLast(data interface{}) {

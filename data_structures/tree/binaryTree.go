@@ -14,17 +14,17 @@ import (
 // for each node, value of all the left subtree is less than or equal to value of all the nodes in right subtree
 
 type node struct {
-	data  int
+	data  Comparator
 	left  *node
 	right *node
 }
 
-func NewNode(data int) *node {
+func NewNode(data Comparator) *node {
 	return &node{data: data}
 }
 
-func (n *node) Insert(data int) {
-	if data < n.data {
+func (n *node) Insert(data Comparator) {
+	if data.Compare(n.data) < 0 {
 		if n.left == nil {
 			n.left = NewNode(data)
 		} else {
@@ -39,12 +39,12 @@ func (n *node) Insert(data int) {
 	}
 }
 
-func (n *node) Search(data int) bool {
+func (n *node) Search(data Comparator) bool {
 	if data == n.data {
 		return true
 	}
 
-	if data < n.data {
+	if data.Compare(n.data) < 0 {
 		if n.left == nil {
 			return false
 		}
@@ -69,9 +69,9 @@ func (n *node) InOrder() {
 }
 
 type BinarySearchTree interface {
-	Contains(int) bool
-	AddNode(int)
-	DeleteNode(int) bool
+	Contains(Comparator) bool
+	AddNode(Comparator)
+	DeleteNode(Comparator) *node
 	InOrder()
 
 	BreadthFirstSearch()
@@ -83,20 +83,56 @@ type tree struct {
 	root *node
 }
 
-func NewTree(data int) BinarySearchTree {
+func NewTree(data Comparator) BinarySearchTree {
 	return &tree{root: NewNode(data)}
 }
 
-func (t *tree) AddNode(data int) {
+func (t *tree) AddNode(data Comparator) {
 	t.root.Insert(data)
 }
 
-func (t *tree) DeleteNode(data int) bool {
-	return false
+// case1: delete a leaf node
+// 		=> simply delete the node from tree
+// case2: delete a node has a single child node
+// 		=> copy the value of its child to the node and delete the child
+// case3: delete a node has two chidren
+//    => copy the value of the inorder successor to the node, delete the inorder successor
+func (t *tree) DeleteNode(data Comparator) *node {
+	return deleteNode(t.root, data)
 }
 
-func (t *tree) Contains(data int) bool {
+func (t *tree) Contains(data Comparator) bool {
 	return t.root.Search(data)
+}
+
+func deleteNode(currentNode *node, data Comparator) *node {
+	if currentNode == nil {
+		return currentNode
+	}
+	if data.Compare(currentNode.data) < 0 {
+		currentNode.left = deleteNode(currentNode, data)
+	} else if data.Compare(currentNode.data) > 0 {
+		currentNode.right = deleteNode(currentNode, data)
+	} else {
+		// found the node to be removed
+		// if the node has only one child, or no child
+		if currentNode.left == nil {
+			return currentNode.right
+		} else if currentNode.right == nil {
+			return currentNode.left
+		}
+		// if the node has two children
+		currentNode.data = getInOrderSuccessor(currentNode).data
+	}
+	return currentNode
+}
+
+func getInOrderSuccessor(node *node) *node {
+	successor := node.left
+	for successor != nil && successor.left != nil {
+		successor = successor.left
+	}
+	return successor
 }
 
 func (t *tree) InOrder() {

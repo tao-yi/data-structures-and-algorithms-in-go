@@ -3,24 +3,24 @@ package doubly_linked_list
 import "fmt"
 
 type node struct {
-	data int
+	data interface{}
 	prev *node
 	next *node
 }
 
 type DoublyLinkedlist interface {
-	AddFirst(data int)           // O(1)
-	AddLast(data int)            // O(1)
-	RemoveFirst() (int, bool)    // O(1)
-	RemoveLast() (int, bool)     // O(1)
-	Remove(item int) (int, bool) // O(n)
-	Contains(item int) bool      // O(n)
-	PeekFirst() (int, bool)      // O(1)
-	PeekLast() (int, bool)       // O(1)
-	Size() int                   // O(1)
+	AddFirst(data interface{})                   // O(1)
+	AddLast(data interface{})                    // O(1)
+	RemoveFirst() (interface{}, bool)            // O(1)
+	RemoveLast() (interface{}, bool)             // O(1)
+	Remove(item interface{}) (interface{}, bool) // O(n)
+	Contains(item interface{}) bool              // O(n)
+	PeekFirst() (interface{}, bool)              // O(1)
+	PeekLast() (interface{}, bool)               // O(1)
+	Size() int                                   // O(1)
 }
 
-func newNode(data int) *node {
+func newNode(data interface{}) *node {
 	return &node{data: data, prev: nil, next: nil}
 }
 
@@ -30,18 +30,24 @@ type doublyLinkedList struct {
 	size int
 }
 
-func (l *doublyLinkedList) AddFirst(data int) {
+func NewDoublyLinkedlist() DoublyLinkedlist {
+	return &doublyLinkedList{}
+}
+
+func (l *doublyLinkedList) AddFirst(data interface{}) {
 	newNode := newNode(data)
 	newNode.next = l.head
 	if l.head == nil {
+		l.head = newNode
 		l.tail = newNode
+		return
 	}
 	l.head.prev = newNode
 	l.head = newNode
 	l.size++
 }
 
-func (l *doublyLinkedList) AddLast(data int) {
+func (l *doublyLinkedList) AddLast(data interface{}) {
 	newNode := newNode(data)
 	if l.head == nil {
 		l.head = newNode
@@ -54,7 +60,7 @@ func (l *doublyLinkedList) AddLast(data int) {
 	l.size++
 }
 
-func (l *doublyLinkedList) RemoveFirst() (first int, success bool) {
+func (l *doublyLinkedList) RemoveFirst() (first interface{}, success bool) {
 	// empty list
 	if l.head == nil {
 		return
@@ -73,7 +79,7 @@ func (l *doublyLinkedList) RemoveFirst() (first int, success bool) {
 	return first, success
 }
 
-func (l *doublyLinkedList) RemoveLast() (last int, success bool) {
+func (l *doublyLinkedList) RemoveLast() (last interface{}, success bool) {
 	if l.head == nil {
 		return
 	}
@@ -88,7 +94,7 @@ func (l *doublyLinkedList) RemoveLast() (last int, success bool) {
 	return last, success
 }
 
-func (l *doublyLinkedList) Remove(item int) (int, bool) {
+func (l *doublyLinkedList) Remove(item interface{}) (interface{}, bool) {
 	var previousNode *node = nil
 	var currentNode *node = l.head
 	for currentNode != nil {
@@ -112,7 +118,7 @@ func (l *doublyLinkedList) Remove(item int) (int, bool) {
 	return 0, false
 }
 
-func (l *doublyLinkedList) Contains(item int) bool {
+func (l *doublyLinkedList) Contains(item interface{}) bool {
 	var currentNode *node = l.head
 	for currentNode != nil {
 		if currentNode.data == item {
@@ -123,14 +129,14 @@ func (l *doublyLinkedList) Contains(item int) bool {
 	return false
 }
 
-func (l *doublyLinkedList) PeekFirst() (int, bool) {
+func (l *doublyLinkedList) PeekFirst() (interface{}, bool) {
 	if l.head == nil {
 		return 0, false
 	}
 	return l.head.data, true
 }
 
-func (l *doublyLinkedList) PeekLast() (int, bool) {
+func (l *doublyLinkedList) PeekLast() (interface{}, bool) {
 	if l.tail == nil {
 		return 0, false
 	}

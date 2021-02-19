@@ -22,3 +22,63 @@ func TestAddNode(t *testing.T) {
 	fmt.Println(tree.Contains(29))
 	tree.InOrder()
 }
+
+func TestDeleteNode(t *testing.T) {
+	tree := NewTree(12)
+	tree.AddNode(5)
+	tree.AddNode(15)
+	tree.AddNode(3)
+	tree.AddNode(7)
+	tree.AddNode(13)
+	tree.AddNode(17)
+	tree.AddNode(1)
+	tree.AddNode(9)
+
+	fmt.Println(tree)
+
+	fmt.Println(tree.Contains(15))
+	fmt.Println(tree.Contains(29))
+	tree.InOrder()
+}
+
+func TestBreadthFirstSearch(t *testing.T) {
+	tree := NewTree(12)
+	tree.AddNode(5)
+	tree.AddNode(15)
+	tree.AddNode(3)
+	tree.AddNode(7)
+	tree.AddNode(13)
+	tree.AddNode(17)
+	tree.AddNode(1)
+	tree.AddNode(9)
+
+	tree.BreadthFirstSearch()
+}
+
+func TestDepthFirstSearchRec(t *testing.T) {
+	tree := NewTree(12)
+	tree.AddNode(5)
+	tree.AddNode(15)
+	tree.AddNode(3)
+	tree.AddNode(7)
+	tree.AddNode(13)
+	tree.AddNode(17)
+	tree.AddNode(1)
+	tree.AddNode(9)
+
+	tree.DepthFirstSearchRec()
+}
+
+func TestDepthFirstSearchLoop(t *testing.T) {
+	tree := NewTree(12)
+	tree.AddNode(5)
+	tree.AddNode(15)
+	tree.AddNode(3)
+	tree.AddNode(7)
+	tree.AddNode(13)
+	tree.AddNode(17)
+	tree.AddNode(1)
+	tree.AddNode(9)
+
+	tree.DepthFirstSearchLoop()
+}

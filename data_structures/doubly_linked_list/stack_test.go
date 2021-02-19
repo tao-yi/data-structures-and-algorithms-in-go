@@ -16,7 +16,7 @@ func Reverse(arr []int) []int {
 	i := 0
 	for !stack.IsEmpty() {
 		if item, ok := stack.Pop(); ok != false {
-			arr[i] = item
+			arr[i] = item.(int)
 			i++
 		}
 	}

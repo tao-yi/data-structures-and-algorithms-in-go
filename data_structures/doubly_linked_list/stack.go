@@ -1,11 +1,11 @@
 package doubly_linked_list
 
 type Stack interface {
-	Push(int)         // O(1)
-	Pop() (int, bool) // O(1)
-	Top() (int, bool) // O(1)
-	IsEmpty() bool    // O(1)
-	Size() int        // O(1)
+	Push(interface{})         // O(1)
+	Pop() (interface{}, bool) // O(1)
+	Top() (interface{}, bool) // O(1)
+	IsEmpty() bool            // O(1)
+	Size() int                // O(1)
 }
 
 type stack struct {
@@ -18,15 +18,15 @@ func NewStack() Stack {
 	}
 }
 
-func (s *stack) Push(item int) {
+func (s *stack) Push(item interface{}) {
 	s.items.AddLast(item)
 }
 
-func (s *stack) Pop() (int, bool) {
+func (s *stack) Pop() (interface{}, bool) {
 	return s.items.RemoveLast()
 }
 
-func (s *stack) Top() (int, bool) {
+func (s *stack) Top() (interface{}, bool) {
 	return s.items.PeekLast()
 }
 

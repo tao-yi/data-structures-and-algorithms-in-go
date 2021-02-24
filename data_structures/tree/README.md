@@ -102,3 +102,13 @@ Min-heaps make it easy to find the smallest element.Max-heaps make it easy to fi
 (for min heap) key of each node is always smaller than the child node/s and the key of the root node is the smallest among all other nodes.
 
 <img src="./imgs/minheap_0.png" alt="drawing" width="200"/>
+
+### Complexity of Binary Search Trees
+
+| Operation |  Average  | (Unbalanced)Worst | (Balanced)Worst |
+| --------- | :-------: | :---------------: | :-------------: |
+| Insert    | O(log(n)) |       O(n)        |    O(log(n))    |
+| Delete    | O(log(n)) |       O(n)        |    O(log(n))    |
+| Search    | O(log(n)) |       O(n)        |    O(log(n))    |
+
+_if the binary search tree contains a list of increasing numbers => O(n)_

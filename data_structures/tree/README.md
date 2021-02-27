@@ -112,3 +112,9 @@ Min-heaps make it easy to find the smallest element.Max-heaps make it easy to fi
 | Search    | O(log(n)) |       O(n)        |    O(log(n))    |
 
 _if the binary search tree contains a list of increasing numbers => O(n)_
+
+### AVL tree
+
+An AVL tree is a self-balancing binary search tree, balaned to maintain `O(log n)` height.
+
+A B-tree is a balanced tree, but it is not a binary tree. Nodes have more children, which increases per-node search time but decreases the number of nodes the search needs to visit.

@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/tao-yi/data-structure-in-go/data_structures/doubly_linked_list"
+	"github.com/tao-yi/data-structure-in-go/util"
 )
 
 func TestAddFirst(t *testing.T) {
@@ -46,6 +47,7 @@ func InitList() doubly_linked_list.DoublyLinkedlist {
 
 func TestRemoveFirst(t *testing.T) {
 	list := InitList()
+	util.MakeImg("doublyLinkedlist", &list)
 	tests := []struct {
 		input doubly_linked_list.DoublyLinkedlist
 		item  interface{}

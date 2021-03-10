@@ -3,6 +3,8 @@ package tree
 import (
 	"fmt"
 	"testing"
+
+	"github.com/tao-yi/data-structure-in-go/util"
 )
 
 type heapItem int
@@ -23,6 +25,7 @@ func TestInsert(t *testing.T) {
 	h.Insert(NewHeapItem(4))
 	h.Insert(NewHeapItem(5))
 	h.Insert(NewHeapItem(6))
+
 	fmt.Println(h)
 }
 
@@ -64,7 +67,9 @@ func TestRemove(t *testing.T) {
 
 func TestSort(t *testing.T) {
 	h := InitHeap()
+	util.MakeImg("heap", &h)
 	fmt.Println(h)
 	h.Sort()
+	util.MakeImg("heap-sorted", &h)
 	fmt.Println(h)
 }

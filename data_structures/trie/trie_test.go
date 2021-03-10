@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/tao-yi/data-structure-in-go/data_structures/trie"
+	"github.com/tao-yi/data-structure-in-go/util"
 )
 
 func TestTrie(tc *testing.T) {
@@ -15,4 +16,6 @@ func TestTrie(tc *testing.T) {
 	fmt.Println(t.Search("hell"))
 	fmt.Println(t.Search("hello"))
 	fmt.Println(t.Search("helloa"))
+
+	util.MakeImg("trie", &t)
 }

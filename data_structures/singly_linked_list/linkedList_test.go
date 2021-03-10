@@ -2,26 +2,23 @@ package singly_linked_list
 
 import (
 	"testing"
+
+	"github.com/tao-yi/data-structure-in-go/util"
 )
 
 func TestAddFirst(t *testing.T) {
 	l := NewLinkedList()
 	l.AddFirst(1)
-	Debug(l)
 	l.AddFirst(2)
-	Debug(l)
 	l.AddFirst(3)
-	Debug(l)
+	util.MakeImg("linkedList", &l)
 }
 
 func TestAddLast(t *testing.T) {
 	l := NewLinkedList()
 	l.AddLast(1)
-	Debug(l)
 	l.AddLast(2)
-	Debug(l)
 	l.AddLast(3)
-	Debug(l)
 }
 
 func TestRemoveFirst(t *testing.T) {

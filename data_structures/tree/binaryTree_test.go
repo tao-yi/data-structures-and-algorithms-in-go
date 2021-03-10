@@ -3,6 +3,8 @@ package tree
 import (
 	"fmt"
 	"testing"
+
+	"github.com/tao-yi/data-structure-in-go/util"
 )
 
 type NodeData int
@@ -39,7 +41,7 @@ func TestAddNode(t *testing.T) {
 	tree.AddNode(NewNodeData(21))
 	tree.AddNode(NewNodeData(26))
 
-	fmt.Println(tree)
+	util.MakeImg("binary-tree", &tree)
 
 	fmt.Println(tree.Contains(NewNodeData(15)))
 	fmt.Println(tree.Contains(NewNodeData(29)))
